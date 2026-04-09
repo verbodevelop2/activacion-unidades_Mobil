@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Activación de Unidad</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f8;
+  }
+
+  /* Header tipo marca */
+  .header {
+    background-color: white;
+    padding: 15px;
+    border-bottom: 4px solid #e60012; /* rojo Mobil */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.azul {
+  color: #003a8f; /* azul Mobil */
+}
+
+.rojo {
+  color: #e60012; /* rojo Mobil */
+}
+
+  /* Contenedor principal */
+  .container {
+    max-width: 700px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+
+  h2 {
+    color: #003a8f;
+  }
+
+  video {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 15px;
+  }
+
+  /* Botón */
+  button {
+    margin-top: 25px;
+    padding: 12px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #003a8f;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  button:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+  }
+
+  button:hover:enabled {
+    background-color: #e60012;
+  }
+
+  /* Texto ayuda */
+  .info {
+    margin-top: 10px;
+    color: #555;
+    font-size: 14px;
+  }
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <div class="logo">
+  <span class="azul">M</span><span class="rojo">o</span><span class="azul">bil</span>
+</div>
+</div>
+
+<div class="container">
+
+  <h2>Activación de Unidad</h2>
+  <p class="info">Por favor visualiza el siguiente video completo para habilitar el servicio.</p>
+
+  <video id="video" controls>
+    <source src="video.mp4" type="video/mp4">
+  </video>
+
+  <button id="btn" disabled>Activar unidad</button>
+
+</div>
+
+<script>
+const video = document.getElementById("video");
+const btn = document.getElementById("btn");
+
+video.onended = function() {
+  btn.disabled = false;
+};
+
+btn.onclick = function() {
+
+  btn.disabled = true;
+  btn.innerText = "Activando...";
+
+  fetch("https://script.google.com/macros/s/AKfycbxXIhRhcrD5alEN_f1e_pFsB_LutKl-EfVlpnPJK8jaZIzkGRrAeE2NmBkXp4klHuu6/exec", {
+    method: "POST",
+    mode: "no-cors"
+  })
+  .then(() => {
+    btn.innerText = "✅ Activado";
+  })
+  .catch(() => {
+    btn.innerText = "❌ Error";
+    btn.disabled = false;
+  });
+};
+</script>
+
+</body>
+</html>
