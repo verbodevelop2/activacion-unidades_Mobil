@@ -103,13 +103,11 @@ video.addEventListener("timeupdate", function() {
     btn.disabled = true;
 
     // ✅ ÚNICO FETCH (hace TODO: BigQuery + activación)
-    const url = "https://script.google.com/macros/s/AKfycbyhRHs1qCh6OB_I4bZkEk9ijva6BInMXs4gijQLF5x2xXJI6IuNYRH-lQ_XDW2cy0s/exec"
+    const url = "https://script.google.com/macros/s/AKfycbx7P8HPFeO-0ulA4aOBKBSKrBpjUUI49VRAbTzaoTnpbc4RSJYmsXkJPr8MUq9roetM/exec"
   + "?device=" + device
   + "&event=video_completed";
 
-fetch(url, {
-  method: "GET"
-});
+fetch(url);
 
     btn.innerText = "✅ Unidad " + device + " activada";
   }
