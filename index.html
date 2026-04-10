@@ -97,6 +97,18 @@ video.addEventListener("timeupdate", function() {
 
   if (!activado && video.duration > 0 && video.currentTime >= video.duration - 0.5) {
 
+    // 📊 REGISTRAR VISTA EN BIGQUERY
+fetch("https://TU_BACKEND/api/evento", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    device: device,
+    event: "video_completed"
+  })
+});
+
     activado = true;
 
     btn.innerText = "Activando unidad " + device + "...";
