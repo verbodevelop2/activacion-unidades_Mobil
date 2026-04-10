@@ -79,18 +79,26 @@
 const video = document.getElementById("video");
 const btn = document.getElementById("btn");
 
-// Activación automática al terminar
+// 🔹 Solo device desde URL
+const params = new URLSearchParams(window.location.search);
+const device = params.get("device") || 301;
+
 video.onended = function() {
 
-  btn.innerText = "Activando...";
+  btn.innerText = "Activando unidad " + device + "...";
   btn.disabled = true;
 
-  fetch("https://script.google.com/macros/s/AKfycbyCTupAaav7CJTfM97AnfG6AaLGcNjSAeF696Kh8MOWR6c0FPlPSjBJd1Hoh8enpUCH/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbw3xIG1_pFmHfRiuPeHuO2VWwgLpjTklhYDD85kBOmV1iSj8IJjl4XFJzTQzvSiPUnd/exec", {
     method: "POST",
-    mode: "no-cors"
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      device: device
+    })
   })
   .then(() => {
-    btn.innerText = "✅ Unidad activada";
+    btn.innerText = "✅ Unidad " + device + " activada (5 min)";
   })
   .catch(() => {
     btn.innerText = "❌ Error";
