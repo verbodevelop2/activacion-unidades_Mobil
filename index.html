@@ -36,9 +36,14 @@
     text-align: center;
   }
 
+  h2 {
+    color: #003a8f;
+  }
+
   video {
     width: 100%;
     border-radius: 10px;
+    margin-top: 10px;
   }
 
   button {
@@ -65,7 +70,7 @@
 <div class="container">
 
   <h2>Activación de Unidad</h2>
-  <p>Visualiza el video completo para activar el servicio</p>
+  <p>Visualiza el video completo para habilitar el servicio</p>
 
   <video id="video" controls>
     <source src="video.mp4" type="video/mp4">
@@ -76,31 +81,42 @@
 </div>
 
 <script>
-const video = document.getElementById("video");
-const btn = document.getElementById("btn");
 
-// 🔹 Solo device desde URL
+// 🔹 Leer dispositivo desde URL
 const params = new URLSearchParams(window.location.search);
 const device = params.get("device") || 301;
 
-video.onended = function() {
+const video = document.getElementById("video");
+const btn = document.getElementById("btn");
 
-  btn.innerText = "Activando unidad " + device + "...";
-  btn.disabled = true;
+// 🔒 Evitar múltiples ejecuciones
+let activado = false;
 
-  fetch("https://script.google.com/macros/s/AKfycbwpbbk0njnJ8jwvUvD7_wtk_NmRaeIsMp1lEZxYH--bPTpEGVAFHkFQHnwVA3N_WyCl/exec", {
-  method: "POST",
-  mode: "no-cors",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    device: device
-  })
+// 🔥 Detección robusta del final del video
+video.addEventListener("timeupdate", function() {
+
+  if (!activado && video.duration > 0 && video.currentTime >= video.duration - 0.5) {
+
+    activado = true;
+
+    btn.innerText = "Activando unidad " + device + "...";
+    btn.disabled = true;
+
+    fetch("https://script.google.com/macros/s/AKfycbwpbbk0njnJ8jwvUvD7_wtk_NmRaeIsMp1lEZxYH--bPTpEGVAFHkFQHnwVA3N_WyCl/exec", {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        device: device
+      })
+    });
+
+    btn.innerText = "✅ Unidad " + device + " activada (5 min)";
+  }
 });
 
-// 🔥 Asumimos éxito
-btn.innerText = "✅ Unidad " + device + " activada (5 min)";
 </script>
 
 </body>
