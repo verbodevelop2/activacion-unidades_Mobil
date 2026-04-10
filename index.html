@@ -102,19 +102,7 @@ video.addEventListener("timeupdate", function() {
     btn.innerText = "Activando unidad " + device + "...";
     btn.disabled = true;
 
-    // 📊 REGISTRAR VISTA (BigQuery)
-    fetch("https://TU_BACKEND/api/evento", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        device: device,
-        event: "video_completed"
-      })
-    });
-
-    // ⚡ ACTIVACIÓN (Apps Script)
+    // ✅ ÚNICO FETCH (hace TODO: BigQuery + activación)
     fetch("https://script.google.com/macros/s/AKfycbxBt5dmFp33BpV8lEWGlpmdmJrbqdOnuLVz8z77xV45P9tE8SPe9qfVaJY3-Cf_qPAu/exec", {
       method: "POST",
       mode: "no-cors",
@@ -122,7 +110,7 @@ video.addEventListener("timeupdate", function() {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        device: device
+        device: device,
         event: "video_completed"
       })
     });
