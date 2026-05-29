@@ -89,6 +89,43 @@ const device = params.get("device") || 301;
 const video = document.getElementById("video");
 const btn = document.getElementById("btn");
 
+
+// ================================
+// TRACKING APERTURA QR
+// ================================
+
+(async () => {
+
+  try {
+
+    const currentUrl = window.location.href;
+
+    const scriptUrl =
+      'https://script.google.com/macros/s/AKfycbyqLx2Xln2-ROWO21PLvLWN3GSgGsi_tLE5llzBJdjVqRfFqiKpuTvON_Py70lP__6Fiw/exec';
+
+    const query = new URLSearchParams({
+      url: currentUrl
+    });
+
+    await fetch(
+      scriptUrl + '?' + query.toString(),
+      {
+        method: 'GET',
+        mode: 'no-cors'
+      }
+    );
+
+    console.log("QR Scan registrado");
+
+  } catch (err) {
+
+    console.error("Tracking error:", err);
+
+  }
+
+})();
+
+
 // 🔒 Evitar múltiples ejecuciones
 let activado = false;
 
