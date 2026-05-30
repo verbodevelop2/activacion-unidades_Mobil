@@ -101,7 +101,7 @@ const btn = document.getElementById("btn");
     const currentUrl = window.location.href;
 
     const scriptUrl =
-      'https://script.google.com/macros/s/AKfycbyRbTBArJWcYFBT9vL9qwZctPo-IxPXy1DNoH-vKz6reNytWUnyJtPqpxqIQzx6s6Q7/exec';
+      'https://script.google.com/macros/s/AKfycbwAY2Hm0NYiBKXLzWso0B7TI8zjHJ6SQECkTXx-hI_qAImgqUaufJqMACkucemjd6MmLQ/exec';
 
     const query = new URLSearchParams({
       url: currentUrl
@@ -139,7 +139,7 @@ video.addEventListener("timeupdate", function() {
     btn.innerText = "Activando unidad " + device + "...";
     btn.disabled = true;
 
-    fetch("https://script.google.com/macros/s/AKfycbzK-AGVIx9NKYt_DK4wOUJE0qgC97vWIrvcg2t1X0G8X_LvGjqGOp2cT4iBPMf0/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbyRbTBArJWcYFBT9vL9qwZctPo-IxPXy1DNoH-vKz6reNytWUnyJtPqpxqIQzx6s6Q7/exec", {
       method: "POST",
       mode: "no-cors",
       headers: {
